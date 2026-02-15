@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TheRoom - AI C-Suite Simulator
 
-## Getting Started
+An immersive AI-powered boardroom experience where you, as CEO, convene with your C-Level executives for strategic discussions.
 
-First, run the development server:
+## 🎯 Features
 
+- **Dynamic Executive Summoning**: AI orchestrator analyzes your topic and convenes only the relevant executives
+- **Visual Board Table**: Executives appear/disappear dynamically with smooth animations
+- **Real-time Debate**: Watch executives discuss, debate, and provide insights in real-time
+- **Simplified Onboarding**: Get to the boardroom in seconds with a quick 3-field form
+
+## 🏗️ Tech Stack
+
+- **Framework**: Next.js 14+ (App Router)
+- **Language**: TypeScript
+- **Authentication**: Clerk
+- **Styling**: Tailwind CSS
+- **State Management**: Zustand
+- **AI**: OpenAI GPT-4o-mini
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+- OpenAI API Key
+- Clerk Account
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/arroa/TheRoom.git
+cd TheRoom
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Create `.env.local` file:
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
+OPENAI_API_KEY=your_openai_api_key
+NEXT_PUBLIC_INACTIVITY_TIMEOUT_MINUTES=30
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Run the development server:
+```bash
+npm run dev
+```
 
-## Learn More
+5. Open [http://localhost:3000](http://localhost:3000)
 
-To learn more about Next.js, take a look at the following resources:
+## 🎭 The Executives
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Victoria Chen** (CFO) - Financial strategy and risk management
+- **Marcus Rodriguez** (CTO) - Technology architecture and innovation
+- **Sarah Kim** (CIO) - Data governance and enterprise systems
+- **James Foster** (CDO) - Digital transformation and customer experience
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📋 How It Works
 
-## Deploy on Vercel
+1. **Present Your Topic**: As CEO, you present a strategic topic or question
+2. **AI Orchestration**: The system analyzes your topic and determines which executives are relevant
+3. **Executive Summoning**: Relevant executives appear at the board table with visual animations
+4. **Dynamic Debate**: Executives discuss the topic, providing insights from their domain expertise
+5. **Interactive Control**: You can interrupt, ask specific executives questions, or guide the conversation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠️ Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+the-room/
+├── src/
+│   ├── app/
+│   │   ├── boardroom/       # Main boardroom interface
+│   │   ├── actions.ts       # Server actions
+│   │   └── layout.tsx       # Root layout
+│   ├── components/
+│   │   ├── Onboarding.tsx   # Quick onboarding form
+│   │   └── ui.tsx           # Reusable UI components
+│   ├── lib/
+│   │   ├── ai.ts            # AI orchestrator & agent logic
+│   │   ├── agents.ts        # Executive persona definitions
+│   │   └── store.ts         # Zustand state management
+│   └── middleware.ts        # Clerk authentication
+```
+
+## 🎨 Design Philosophy
+
+- **Immersive Experience**: Feel like you're in a real boardroom
+- **Dynamic Presence**: Executives only appear when needed
+- **Visual Clarity**: Clear indicators of who's speaking and who wants to speak
+- **Minimal Friction**: Get to the boardroom in seconds, not minutes
+
+## 📝 License
+
+MIT
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📧 Contact
+
+For questions or feedback, please open an issue on GitHub.
