@@ -1,109 +1,109 @@
-# TheRoom - AI C-Suite Simulator
+# TheRoom - Simulador de Junta Directiva con IA
 
-An immersive AI-powered boardroom experience where you, as CEO, convene with your C-Level executives for strategic discussions.
+Una experiencia inmersiva de sala de juntas impulsada por IA donde tú, como CEO, convocas a tus ejecutivos de nivel C para discusiones estratégicas.
 
-## 🎯 Features
+## 🎯 Características
 
-- **Dynamic Executive Summoning**: AI orchestrator analyzes your topic and convenes only the relevant executives
-- **Visual Board Table**: Executives appear/disappear dynamically with smooth animations
-- **Real-time Debate**: Watch executives discuss, debate, and provide insights in real-time
-- **Simplified Onboarding**: Get to the boardroom in seconds with a quick 3-field form
+- **Convocatoria Dinámica de Ejecutivos**: El orquestador de IA analiza tu tema y convoca solo a los ejecutivos relevantes
+- **Mesa de Juntas Visual**: Los ejecutivos aparecen/desaparecen dinámicamente con animaciones fluidas
+- **Debate en Tiempo Real**: Observa a los ejecutivos discutir, debatir y proporcionar insights en tiempo real
+- **Onboarding Simplificado**: Llega a la sala de juntas en segundos con un formulario rápido de 3 campos
 
-## 🏗️ Tech Stack
+## 🏗️ Stack Tecnológico
 
 - **Framework**: Next.js 14+ (App Router)
-- **Language**: TypeScript
-- **Authentication**: Clerk
-- **Styling**: Tailwind CSS
-- **State Management**: Zustand
-- **AI**: OpenAI GPT-4o-mini
+- **Lenguaje**: TypeScript
+- **Autenticación**: Clerk
+- **Estilos**: Tailwind CSS
+- **Gestión de Estado**: Zustand
+- **IA**: OpenAI GPT-4o-mini
 
-## 🚀 Getting Started
+## 🚀 Comenzar
 
-### Prerequisites
+### Prerequisitos
 
 - Node.js 18+
-- npm or yarn
-- OpenAI API Key
-- Clerk Account
+- npm o yarn
+- API Key de OpenAI
+- Cuenta de Clerk
 
-### Installation
+### Instalación
 
-1. Clone the repository:
+1. Clona el repositorio:
 ```bash
 git clone https://github.com/arroa/TheRoom.git
 cd TheRoom
 ```
 
-2. Install dependencies:
+2. Instala las dependencias:
 ```bash
 npm install
 ```
 
-3. Create `.env.local` file:
+3. Crea el archivo `.env.local`:
 ```env
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
-CLERK_SECRET_KEY=your_clerk_secret_key
-OPENAI_API_KEY=your_openai_api_key
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=tu_clerk_publishable_key
+CLERK_SECRET_KEY=tu_clerk_secret_key
+OPENAI_API_KEY=tu_openai_api_key
 NEXT_PUBLIC_INACTIVITY_TIMEOUT_MINUTES=30
 ```
 
-4. Run the development server:
+4. Ejecuta el servidor de desarrollo:
 ```bash
 npm run dev
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000)
+5. Abre [http://localhost:3000](http://localhost:3000)
 
-## 🎭 The Executives
+## 🎭 Los Ejecutivos
 
-- **Victoria Chen** (CFO) - Financial strategy and risk management
-- **Marcus Rodriguez** (CTO) - Technology architecture and innovation
-- **Sarah Kim** (CIO) - Data governance and enterprise systems
-- **James Foster** (CDO) - Digital transformation and customer experience
+- **Victoria Chen** (CFO) - Estrategia financiera y gestión de riesgos
+- **Marcus Rodriguez** (CTO) - Arquitectura tecnológica e innovación
+- **Sarah Kim** (CIO) - Gobernanza de datos y sistemas empresariales
+- **James Foster** (CDO) - Transformación digital y experiencia del cliente
 
-## 📋 How It Works
+## 📋 Cómo Funciona
 
-1. **Present Your Topic**: As CEO, you present a strategic topic or question
-2. **AI Orchestration**: The system analyzes your topic and determines which executives are relevant
-3. **Executive Summoning**: Relevant executives appear at the board table with visual animations
-4. **Dynamic Debate**: Executives discuss the topic, providing insights from their domain expertise
-5. **Interactive Control**: You can interrupt, ask specific executives questions, or guide the conversation
+1. **Presenta tu Tema**: Como CEO, presentas un tema o pregunta estratégica
+2. **Orquestación IA**: El sistema analiza tu tema y determina qué ejecutivos son relevantes
+3. **Convocatoria de Ejecutivos**: Los ejecutivos relevantes aparecen en la mesa de juntas con animaciones visuales
+4. **Debate Dinámico**: Los ejecutivos discuten el tema, proporcionando insights desde su experiencia
+5. **Control Interactivo**: Puedes interrumpir, hacer preguntas a ejecutivos específicos o guiar la conversación
 
-## 🛠️ Project Structure
+## 🛠️ Estructura del Proyecto
 
 ```
 the-room/
 ├── src/
 │   ├── app/
-│   │   ├── boardroom/       # Main boardroom interface
+│   │   ├── boardroom/       # Interfaz principal de la sala de juntas
 │   │   ├── actions.ts       # Server actions
-│   │   └── layout.tsx       # Root layout
+│   │   └── layout.tsx       # Layout raíz
 │   ├── components/
-│   │   ├── Onboarding.tsx   # Quick onboarding form
-│   │   └── ui.tsx           # Reusable UI components
+│   │   ├── Onboarding.tsx   # Formulario rápido de onboarding
+│   │   └── ui.tsx           # Componentes UI reutilizables
 │   ├── lib/
-│   │   ├── ai.ts            # AI orchestrator & agent logic
-│   │   ├── agents.ts        # Executive persona definitions
-│   │   └── store.ts         # Zustand state management
-│   └── middleware.ts        # Clerk authentication
+│   │   ├── ai.ts            # Lógica del orquestador y agentes IA
+│   │   ├── agents.ts        # Definiciones de personas ejecutivas
+│   │   └── store.ts         # Gestión de estado con Zustand
+│   └── middleware.ts        # Autenticación con Clerk
 ```
 
-## 🎨 Design Philosophy
+## 🎨 Filosofía de Diseño
 
-- **Immersive Experience**: Feel like you're in a real boardroom
-- **Dynamic Presence**: Executives only appear when needed
-- **Visual Clarity**: Clear indicators of who's speaking and who wants to speak
-- **Minimal Friction**: Get to the boardroom in seconds, not minutes
+- **Experiencia Inmersiva**: Siéntete como en una sala de juntas real
+- **Presencia Dinámica**: Los ejecutivos solo aparecen cuando son necesarios
+- **Claridad Visual**: Indicadores claros de quién habla y quién quiere hablar
+- **Fricción Mínima**: Llega a la sala de juntas en segundos, no en minutos
 
-## 📝 License
+## 📝 Licencia
 
 MIT
 
-## 🤝 Contributing
+## 🤝 Contribuir
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+¡Las contribuciones son bienvenidas! Por favor, siéntete libre de enviar un Pull Request.
 
-## 📧 Contact
+## 📧 Contacto
 
-For questions or feedback, please open an issue on GitHub.
+Para preguntas o comentarios, por favor abre un issue en GitHub.
