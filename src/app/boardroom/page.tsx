@@ -7,6 +7,7 @@ import { agents } from '@/lib/agents';
 import { Button, Input } from '@/components/ui';
 import { Send } from 'lucide-react';
 import { chatWithAgent } from '@/app/actions';
+import { validateMessage, sanitizeUserInput, truncateConversationHistory } from '@/lib/validation';
 
 interface Message {
     id: string;
@@ -18,11 +19,19 @@ interface Message {
 }
 
 export default function BoardroomPage() {
-    const { companyName, industry, country, goals } = useGameStore();
+    const {
+        companyName,
+        industry,
+        country,
+        goals,
+        presentExecutives,
+        activeSpeaker,
+        setActiveSpeaker,
+        addExecutive
+    } = useGameStore();
+
     const [inputMessage, setInputMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [presentExecutives, setPresentExecutives] = useState<string[]>([]); // IDs of execs at table
-    const [activeSpeaker, setActiveSpeaker] = useState<string | null>(null);
     const [messages, setMessages] = useState<Message[]>([
         {
             id: '1',
@@ -36,15 +45,31 @@ export default function BoardroomPage() {
     const handleSendMessage = async () => {
         if (!inputMessage.trim() || isLoading) return;
 
+        // Validate input
+        const validation = validateMessage(inputMessage);
+        if (!validation.valid) {
+            const errorMsg: Message = {
+                id: Date.now().toString(),
+                content: validation.error || 'Error de validación',
+                isUser: false,
+                timestamp: new Date(),
+                type: 'system'
+            };
+            setMessages(prev => [...prev, errorMsg]);
+            return;
+        }
+
+        // Sanitize input
+        const sanitizedInput = sanitizeUserInput(inputMessage);
+
         const newMessage: Message = {
             id: Date.now().toString(),
-            content: inputMessage,
+            content: sanitizedInput,
             isUser: true,
             timestamp: new Date()
         };
 
         setMessages([...messages, newMessage]);
-        const currentInput = inputMessage;
         setInputMessage('');
         setIsLoading(true);
 
@@ -60,13 +85,10 @@ export default function BoardroomPage() {
             // Call orchestrator
             const result = await chatWithAgent(
                 'orchestrator',
-                currentInput,
+                sanitizedInput,
                 { companyName, industry, country, goals },
                 conversationHistory,
-                {
-                    activeSpeaker: activeSpeaker,
-                    handQueue: []
-                }
+                { activeSpeaker }
             );
 
             if (result.success && result.decision) {
@@ -85,7 +107,7 @@ export default function BoardroomPage() {
                             type: 'system'
                         };
                         setMessages(prev => [...prev, summonMsg]);
-                        setPresentExecutives(prev => [...prev, decision.agentId!]);
+                        addExecutive(decision.agentId);
 
                         // Small delay for effect
                         await new Promise(resolve => setTimeout(resolve, 800));
@@ -154,10 +176,10 @@ export default function BoardroomPage() {
                             >
                                 <div
                                     className={`w-16 h-16 rounded-full flex items-center justify-center text-3xl border-4 transition-all duration-300 ${isSpeaking
-                                            ? 'border-[var(--color-accent-primary)] shadow-lg shadow-[var(--color-accent-primary)] animate-pulse'
-                                            : isPresent
-                                                ? 'border-[var(--color-border)]'
-                                                : 'border-transparent'
+                                        ? 'border-[var(--color-accent-primary)] shadow-lg shadow-[var(--color-accent-primary)] animate-pulse'
+                                        : isPresent
+                                            ? 'border-[var(--color-border)]'
+                                            : 'border-transparent'
                                         }`}
                                     style={isPresent ? { borderColor: agent.color } : {}}
                                 >
@@ -197,8 +219,8 @@ export default function BoardroomPage() {
                                 {/* Avatar */}
                                 <div
                                     className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-xl ${msg.isUser
-                                            ? 'bg-[var(--color-accent-primary)]'
-                                            : 'border-2'
+                                        ? 'bg-[var(--color-accent-primary)]'
+                                        : 'border-2'
                                         }`}
                                     style={!msg.isUser && agent ? { borderColor: agent.color } : {}}
                                 >
@@ -220,8 +242,8 @@ export default function BoardroomPage() {
 
                                     <div
                                         className={`rounded-lg px-4 py-3 ${msg.isUser
-                                                ? 'bg-[var(--color-accent-primary)] text-[var(--color-bg-primary)]'
-                                                : 'bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)]'
+                                            ? 'bg-[var(--color-accent-primary)] text-[var(--color-bg-primary)]'
+                                            : 'bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)]'
                                             }`}
                                     >
                                         <p className="text-sm leading-relaxed">{msg.content}</p>

@@ -120,10 +120,24 @@ export async function generateOrchestratorDecision(
             temperature: 0.5,
         });
 
-        return JSON.parse(completion.choices[0]?.message?.content || '{}') as OrchestraResponse;
+        const content = completion.choices[0]?.message?.content;
+        if (!content) {
+            throw new Error('No content in AI response');
+        }
+
+        return JSON.parse(content) as OrchestraResponse;
     } catch (e) {
-        console.error("Error parsing orchestrator response", e);
-        return { type: 'AGENT_SPEAK', agentId: 'cfo', content: 'Error en orquestación.' };
+        console.error("Error in orchestrator:", e);
+
+        // Better error handling - return structured error response
+        const errorMessage = e instanceof Error ? e.message : 'Error desconocido';
+
+        return {
+            type: 'AGENT_SPEAK',
+            agentId: 'cfo',
+            content: `[Error del sistema: ${errorMessage}. Continuando con CFO por defecto.]`,
+            reasoning: 'Fallback debido a error en orquestación'
+        };
     }
 }
 
